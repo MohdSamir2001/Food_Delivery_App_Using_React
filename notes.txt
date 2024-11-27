@@ -1,0 +1,103 @@
+# NamasteReact
+task 1 : (using javascript dom create page)
+--------------------------------------------
+const heading = document.createElement("h1");
+heading.innerHTML = "Hello Using JS Dom";
+const root = document.getElementById("root");
+root.appendChild(heading);
+
+task 2 : (using ReactDOM create page)
+-------------------------------------
+First Put React CDN In innerHTML
+--------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Episode 1</title>
+</head>
+<body>
+    <div id="root">
+    </div> 
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="script.js" ></script>  
+</body>
+</html>
+
+Second Write Code Of React Using JS
+-----------------------------------
+const heading = React.createElement("h1",{id:"heading"},"Mohd Samir By React")
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(heading)
+
+task 2 : (create following by React)
+------------------------------------
+<div id="parent">
+  <div id="child">
+     <h1>mohd samir</h1>
+  </div>
+</div>
+
+Code : 
+    const parent = React.createElement("div",{id:"parent"}, 
+    React.createElement("div",{id:"child"},
+    React.createElement("h1",{},"mohd samir")));
+    const root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(parent);
+
+task 3 : (create following by React)
+------------------------------------
+<div id="parent">
+  <div id="child1">
+     <h1>mohd samir</h1>
+     <h2>nikita rathor</h2>
+  </div>
+  <div id="child2">
+     <h1>mohd samir</h1>
+     <h2>nikita rathor</h2>
+  </div>
+</div>
+
+Code :
+const parent = React.createElement("div",{id:"parent"},[
+    React.createElement("div",{id:"child1"},[
+        React.createElement("h1",{},"mohd samir"),
+        React.createElement("h2",{},"nikita rathor")
+    ]),
+    React.createElement("div",{id:"child2"},[
+        React.createElement("h1",{},"mohd samir"),
+        React.createElement("h2",{},"nikita rathor")
+    ])
+])
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(parent)
+
+Note Points Of Episode 01
+-------------------------
+1.React.createElement objects ko convert karta hai html me woh browser understand kar leta hai
+2. <div id="root">
+        <h1>Hii Hello</h1>  jab hum yeh likhte hai toh root ke andar ka content overwrite ho jata hai
+    </div>
+3.<div>
+        <h1>I am Mohd Samir</h1>
+    </div>
+    <div id="root">   jab aise likhte hai root ka andar ka react code dono div ke beech me aata hai , iska matlab hum react ke through koi sa bhi part bana sakte hai pure webpage par isliye yeh library hai 
+    </div>
+    <div>
+        <h1>I am Nikita Rathore</h1>
+    </div>
+
+#Episode 02
+--> nmp is the standard repository for all the packages
+--> package.json is the configuration for nmp
+--> our project is dependent on the lot of packages , npm take care what is the version of the package 
+--> most important package is the bundler (webpack , parcel , vite)
+--> bundler helps to build app for push to the production
+--> there are two types of dependency (packages) we install , one is dev dependency and one is normal dependency
+--> dev dependency required for development phase and normal is for production
+--> caret is use for track minor update in parcel 
+--> react cdn is the not good way to use react and ReactDOM
+--> npx parcel build index.html karne par hame package.json me se main hatana haii

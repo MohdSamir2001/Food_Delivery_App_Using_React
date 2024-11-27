@@ -1,0 +1,96 @@
+const RestaurantMenuContainer = () => {
+  const { resId } = useParams();
+  const menuInfo = useRestaurantMenu(resId);
+  const menuList = useMenuList(resId);
+
+  const itemCategory = menuList?.cards?.filter((item) => {
+    return (
+      item?.card?.card?.["@type"] ===
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+  });
+  console.log(itemCategory);
+  return (
+    <div className="w-full">
+      <div className="w-8/12 my-4 border-2 border-gray-400 rounded-lg bg-gray-200 mx-auto ">
+        <AboutRestaurant aboutRes={menuInfo} />
+      </div>
+      <h1 className="w-8/12 my-4 font-semibold text-2xl text-center overflow-hidden border-gray-400 mx-auto">
+        ------MENU-----
+      </h1>
+      <div className="w-8/12 overflow-hidden border-gray-400 mx-auto">
+        {itemCategory?.map((category) => {
+          return (
+            <div key={category.card.card.title}>
+              <CategoryInfo data={category.card.card} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+export default RestaurantMenuContainer;
+
+
+
+
+const CategoryInfo = ({ data }) => {
+  const [show, setshow] = useState(false);
+  const handleClick = () => {
+    setshow(!show);
+  };
+  return (
+    <div className="transition-all">
+      <div className="w-full cursor-pointer p-2 bg-gray-200 mb-2 border-b-2 border-gray-400">
+        <div onClick={handleClick} className="flex  justify-between">
+          <div className="font-semibold mb-1">
+            {data.title} ({data.itemCards.length})
+          </div>
+          <div>⬇️</div>
+        </div>
+        {show && <MenuItems items={data} />}
+      </div>
+    </div>
+  );
+};
+
+export default CategoryInfo;
+
+
+
+const MenuItems = ({ items }) => {
+  console.log(items);
+  return (
+    <div className="w-full">
+      {items?.itemCards?.map((item) => {
+        const { id, imageId, name, price, defaultPrice, description } =
+          item?.card?.info;
+        return (
+          <div
+            key={id}
+            className="bg-blue-300 w-full justify-between flex rounded-lg p-1 my-2 py-2"
+          >
+            <div className="w-8/12 font-semibold">
+              <h1 className="text-2xl">{name}</h1>
+              <h2>Rs: {price / 100 || defaultPrice / 100}</h2>
+              <h3>{description}</h3>
+            </div>
+            <div className="w-36 relative rounded-lg">
+              <img
+                className="w-full object-cover rounded-lg"
+                src={Menu_List_URL + imageId}
+                alt=""
+              />
+              <h1 className="p-2 w-16 text-center rounded-lg absolute -top-4 left-10 bg-black text-white font-semibold">
+                Add
+              </h1>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default MenuItems;
