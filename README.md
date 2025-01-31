@@ -1,5 +1,8 @@
 # Food_Delivery_App_Using_React
 
+# please use cors plugin extention on your browser before run this project
+
+
 clone repositry in your laptop
 and 
 run these commands in your system
